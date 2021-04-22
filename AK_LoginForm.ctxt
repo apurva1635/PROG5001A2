@@ -1,8 +1,8 @@
 #BlueJ class context
-comment0.target=LoginForm
-comment0.text=\r\n\ This\ program\ demonstrates\ how\ to\ use\ JFrame\ and\ LayoutManager.\r\n\ @author\ Vinh\ Bui\r\n
+comment0.target=AK_LoginForm
+comment0.text=\n\ This\ program\ demonstrates\ how\ to\ use\ JFrame\ and\ LayoutManager.\n\ @author\ Vinh\ Bui\n
 comment1.params=
-comment1.target=LoginForm()
+comment1.target=AK_LoginForm()
 comment2.params=e
 comment2.target=void\ actionPerformed(java.awt.event.ActionEvent)
 comment3.params=fileName

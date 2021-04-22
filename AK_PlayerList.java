@@ -1,5 +1,5 @@
 /**
- * Write a description of class Player here.
+ * Write a description of class AK_Player here.
  *
  * @author (your name)
  * @version (a version number or a date)
@@ -8,15 +8,15 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Collections;
 
-public class PlayerList
+public class AK_PlayerList
 {
     // list of player objects
-    private ArrayList<Player> playerList;
+    private ArrayList<AK_Player> playerList;
  
     /**
-     * Constructor for objects of class Player
+     * Constructor for objects of class AK_Player
      */
-    public PlayerList() {
+    public AK_PlayerList() {
         // initialise the player list
         playerList = new ArrayList<>();
     }
@@ -27,7 +27,7 @@ public class PlayerList
      * @return none
      */
     public void add(String name, String password) {
-        Player player = new Player(name, password);
+        AK_Player player = new AK_Player(name, password);
         playerList.add(player);
     }
 
@@ -57,9 +57,9 @@ public class PlayerList
         boolean match;
         match = false;
         
-        Iterator<Player> iter = playerList.iterator();
+        Iterator<AK_Player> iter = playerList.iterator();
         while (iter.hasNext()) {
-            Player player = iter.next();
+            AK_Player player = iter.next();
             if ((player.name.compareTo(name)==0) && (player.password.compareTo(password)==0)) {
                match = true;
                break;
@@ -84,9 +84,9 @@ public class PlayerList
                 s = s + player.toString() + "\n";
         }
         */
-        Iterator<Player> iter = playerList.iterator();
+        Iterator<AK_Player> iter = playerList.iterator();
         while (iter.hasNext()) {
-            Player player = iter.next();
+            AK_Player player = iter.next();
             s = s + player.toString() + "\n";
         }
         return s;
@@ -95,11 +95,11 @@ public class PlayerList
     /**
      * This private class for storing player's details 
      */
-    class Player implements Comparable<Player> {
+    class AK_Player implements Comparable<AK_Player> {
         public String name;
         public String password;
         
-        public Player(String name, String password) {
+        public AK_Player(String name, String password) {
             this.name = name;
             this.password = password;
         }
@@ -110,7 +110,7 @@ public class PlayerList
         }
  
         @Override
-        public int compareTo(Player p) {
+        public int compareTo(AK_Player p) {
             return this.name.compareTo(p.name);
         }
     }
