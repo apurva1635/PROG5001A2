@@ -7,10 +7,10 @@ public class AK_GameBoard extends JPanel {
     int xcells = 30;    
     int ycells = 30;
     int szcell = 10;        
-       
+      
     public AK_GameBoard() {
         setPreferredSize(new Dimension(xcells * szcell, ycells * szcell));        
-        setBackground(color.black);
+        setBackground(Color.black);
         setFocusable(true);        
     }
 
