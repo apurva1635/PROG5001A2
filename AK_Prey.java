@@ -4,11 +4,12 @@
  * @author 
  * @version
  */
-public class AK_Prey {
+public abstract class AK_Prey {
+public int defaultXPosition;
+public int defaultYPosition;
     /**
-     * Constructor for objects of class AK_Prey
+     * This is abstract method to load image of a Prey.
      */
-    public AK_Prey()
-    {
-    }    
+    
+    public abstract void loadPreyImage(String imagePath);
 }
