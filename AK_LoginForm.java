@@ -13,6 +13,7 @@ import java.awt.event.*;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.awt.EventQueue;
  
 /**
  * This program demonstrates how to use JFrame and LayoutManager.
@@ -89,6 +90,11 @@ public class AK_LoginForm extends JFrame implements ActionListener {
         String password = fieldPassword.getText();
         if (playerList.matchPlayer(username, password)) {
             JOptionPane.showMessageDialog(this, username + ": login successfully");
+            EventQueue.invokeLater(() -> {
+            //create the game with a game title as follow: The Snake Game (C) Your_Name
+            JFrame sgame = new AK_SnakeGame("The Snake Game (C) Apurva_Kedar");
+            sgame.setVisible(true);
+        });
         } else {
             JOptionPane.showMessageDialog(this, "wrong username or password");
         }
