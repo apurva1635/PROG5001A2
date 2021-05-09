@@ -26,11 +26,10 @@ import javax.swing.border.Border;
 
 
 public class AK_GameBoard extends JPanel implements ActionListener {    
-    int xcells = 30;    
-    int ycells = 30;
+    int xcells = 90;    
+    int ycells = 90;
     int szcell = 10; 
-private final int B_WIDTH = 900;
-private final int B_HEIGHT = 900;
+
 private final int PIXEL_SIZE = 5;
 private final int PIXELS = 100;
 private final int POSITION = 30;
@@ -58,7 +57,7 @@ private JToolBar toolBar;
 setLayout(new BorderLayout());
 setBackground(Color.black);
 setFocusable(true);
-setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
+setPreferredSize(new Dimension(xcells * szcell, ycells * szcell));
 toolBar = new JToolBar("");
 toolBar.setOrientation(SwingConstants.VERTICAL);
 toolBar.setBackground(Color.white);
