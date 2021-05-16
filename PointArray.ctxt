@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=PointArray
+comment1.params=
+comment1.target=java.util.List\ getPointArrayList()
+comment2.params=pointArrayList
+comment2.target=void\ setPointArrayList(java.util.List)
+numComments=3

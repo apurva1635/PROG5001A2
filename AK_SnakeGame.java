@@ -1,24 +1,31 @@
 import java.awt.EventQueue;
 import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 
 public class AK_SnakeGame extends JFrame {
 
-    public AK_SnakeGame(String gameTille) {        
-        add(new AK_GameBoard());
-        setTitle(gameTille);
-        setResizable(false);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        pack();        
-    }
-    
-    public static void main(String[] args) {        
-       SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new AK_LoginForm().setVisible(true);
-            }
-        });
-    }
+public AK_SnakeGame() {
+
+initUI ();
 }
+
+private void initUI() {
+
+add(new AK_GameBoard());
+
+setResizable(true);
+pack();
+
+setTitle("My Snake Game");
+setLocationRelativeTo(null);
+setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+}
+
+public static void main (String[] args) {
+System.out.println("GAME STARTED");
+EventQueue.invokeLater(() -> {
+JFrame ex = new AK_SnakeGame();
+ex.setVisible(true);
+});
+}
+}
+
