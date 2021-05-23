@@ -27,6 +27,7 @@ public class AK_LoginForm extends JFrame implements ActionListener {
     private JPasswordField fieldPassword;
     private JButton buttonLogin;
     private AK_PlayerList playerList;
+    
  
     public AK_LoginForm() {
         super("Login Form");
@@ -93,8 +94,8 @@ public class AK_LoginForm extends JFrame implements ActionListener {
             //JOptionPane.showMessageDialog(this, username + ": login successfully");
             EventQueue.invokeLater(() -> {
             //create the game with a game title as follow: The Snake Game (C) Your_Name
-            //JFrame sgame = new AK_SnakeGame("The Snake Game (C) Apurva_Kedar");
-            //sgame.setVisible(true);
+            JFrame sgame = new AK_SnakeGame(username);
+            sgame.setVisible(true);
         });
         } else {
             JOptionPane.showMessageDialog(this, "wrong username or password");

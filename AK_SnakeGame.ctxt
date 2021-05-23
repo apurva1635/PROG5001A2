@@ -1,9 +1,11 @@
 #BlueJ class context
 comment0.target=AK_SnakeGame
-comment1.params=
-comment1.target=AK_SnakeGame()
-comment2.params=
-comment2.target=void\ initUI()
+comment1.params=playerName
+comment1.target=AK_SnakeGame(java.lang.String)
+comment2.params=playerName
+comment2.target=void\ initUI(java.lang.String)
 comment3.params=args
 comment3.target=void\ main(java.lang.String[])
-numComments=4
+comment4.params=
+comment4.target=void\ run()
+numComments=5

@@ -20,6 +20,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -35,14 +37,14 @@ import javax.swing.border.Border;
 
 
 
-public class AK_GameBoard extends JPanel implements ActionListener {    
+public class AK_GameBoard extends JPanel implements ActionListener,MouseListener {    
     int xcells = 90;    
     int ycells = 90;
     int szcell = 10; 
    private final int PIXEL_SIZE = 10;
    private final int PIXELS = 900;
    private final int POSITION = 29;
-   private final int TIME_DELAY = 140;
+   private final int TIME_DELAY = 100;
 
    
 
@@ -66,16 +68,28 @@ public class AK_GameBoard extends JPanel implements ActionListener {
    private boolean isSpacePressed = true;
    private Timer timer;
    private JLabel currPlayerScorelabel = new JLabel("CURRENT PLAYER SCORE:");
-
+   private String playerName = "";
   
     /**
     *This is a default constructor to create game board with background 
     *colour as black and dimensions as 300px * 300px
     */
-    public AK_GameBoard() {
+    public AK_GameBoard(String playerName) {
+        this.playerName = playerName;
         drawBoard(); 
-        
+        addMouseListener(this);
     }
+    public void mouseClicked(MouseEvent e){
+     if (isSpacePressed) {
+     isSpacePressed = false;
+     } else {
+     isSpacePressed = true;
+    }
+    }
+      public void mouseEntered(MouseEvent e){}
+        public void mouseExited(MouseEvent e){}
+          public void mousePressed(MouseEvent e){}
+            public void mouseReleased(MouseEvent e){}
   private void drawBoard() {
 
 //pointArray.add(new Point(-100,-100));
@@ -104,7 +118,8 @@ p.setBackground(Color.white);
 JButton quitBtn = new JButton("Quit");
 BufferedImage myPicture = null;
 try {
-myPicture = ImageIO.read(new File("snake_head.png"));
+myPicture = ImageIO.read(new File("snake_game.png"));
+//myPicture = myPicture.getScaledInstance(50, 50, Image.SCALE_DEFAULT);
 } catch (Exception e) {
    e.printStackTrace();
 }
@@ -227,7 +242,7 @@ if (!myObj.exists()) {
 myObj.createNewFile();
 }
 FileWriter myWriter = new FileWriter("player_score.txt", true);
-myWriter.write("Player Name" + "," + (pixels - 3) + "\n");
+myWriter.write(playerName + "," + (pixels - 3) + "\n");
 myWriter.close();
 System.out.println("An error occurred.");
 }catch(Exception e){
@@ -297,7 +312,7 @@ if (tempPointYFirst < 0) {
    isGameOn = false;
 }
 
-if (tempPointXFirst >= ycells * szcell) {
+if (tempPointXFirst >= xcells * szcell) {
    isGameOn = false;
 }
 
@@ -306,7 +321,7 @@ if (tempPointXFirst < 0) {
 
 }
 
-if (isGameOn) {
+if (!isGameOn) {
     timer.stop();
 }
 }
@@ -315,18 +330,26 @@ if (isGameOn) {
 @Override
 public void actionPerformed(ActionEvent e) {
 
-//System.out.println(""-----in actionPerformed : :"+isSpacePressed);
+//System.out.println("-----in actionPerformed : :"+isSpacePressed);
 currPlayerScorelabel.setText("Current Player Score:"+ (pixels - 3));
 if (!isSpacePressed && isGameOn) {
+    System.out.println("0-----in actionPerformed : :"+isSpacePressed);
 isPreyHit();
 checkCollision();
 moveSnake();
-
+System.out.println("11-----in actionPerformed : :"+isSpacePressed);
 } else {
 
 }
+System.out.println("1-----in actionPerformed : :"+isSpacePressed);
+try{
+    revalidate();
 repaint();
-
+}catch(Exception ex){
+    System.out.println("2-----EXCEPTION : :"+ex);
+ex.printStackTrace();
+}
+System.out.println("2-----in actionPerformed : :"+isSpacePressed);
 }
 
 private String getHighScore() {
@@ -380,15 +403,7 @@ private class UserInputAdapter extends KeyAdapter {
 public void keyPressed(KeyEvent e) {
 
 int key = e.getKeyCode();
-System.out.println("key = "+key);
-System.out.println("KeyEvent.VK_LEFT = "+KeyEvent.VK_LEFT);
-System.out.println("KeyEvent.VK_RIGHT = "+KeyEvent.VK_RIGHT);
-System.out.println("KeyEvent.VK_DOWN = "+KeyEvent.VK_DOWN);
-System.out.println("KeyEvent.VK_UP = "+KeyEvent.VK_UP);
-System.out.println("KeyEvent.VK_A = "+KeyEvent.VK_A);
-System.out.println("KeyEvent.VK_D = "+KeyEvent.VK_D);
-System.out.println("KeyEvent.VK_S = "+KeyEvent.VK_S);
-System.out.println("KeyEvent.VK_W = "+KeyEvent.VK_W);
+
 if ((key == KeyEvent.VK_LEFT) && (!rightDir)) {
 leftDir = true;
 upDir = false;
@@ -401,13 +416,13 @@ upDir = false;
 downDir = false;
 }
 
-if ((key == KeyEvent.VK_DOWN) && (!downDir)) {
+if ((key == KeyEvent.VK_UP) && (!downDir)) {
 upDir = true;
 rightDir = false;
 leftDir = false;
 }
 
-if ((key == KeyEvent.VK_UP) && (!upDir)) {
+if ((key == KeyEvent.VK_DOWN) && (!upDir)) {
 downDir = true;
 rightDir = false;
 leftDir = false;
