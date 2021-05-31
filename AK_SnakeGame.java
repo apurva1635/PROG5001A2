@@ -1,7 +1,7 @@
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
-
+//
 public class AK_SnakeGame extends JFrame {
 
 public AK_SnakeGame(String playerName) {

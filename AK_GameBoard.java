@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -69,6 +70,8 @@ public class AK_GameBoard extends JPanel implements ActionListener,MouseListener
    private Timer timer;
    private JLabel currPlayerScorelabel = new JLabel("CURRENT PLAYER SCORE:");
    private String playerName = "";
+   private List<Point> preyList = new ArrayList<Point>();
+   
   
     /**
     *This is a default constructor to create game board with background 
@@ -138,6 +141,26 @@ showIcons();
 startGame();
 }
 
+static final Random rand = new Random();
+void addPrey(){
+int r = (int) (Math.random() * POSITION);
+int x = ((r * PIXEL_SIZE));
+
+r = (int) (Math.random() * POSITION);
+int y = ((r * PIXEL_SIZE));
+if(preyList.size()<3){
+    while(true){
+    Point p = new Point(x,y);
+    if(pointArrayList.contains(p) || preyList.contains(p)){
+    continue;
+    }
+    preyList.add(p);
+    //break;
+    }
+}
+System.out.println(preyList.size());
+}
+
 private void showIcons() {
 
 ImageIcon bpartImage = new ImageIcon("body_part.png");
@@ -160,8 +183,10 @@ for (int i = 0; i<pixels; i++) {
 pointArrayList.add(new Point(50 - i *10, 50));
 }
 
-showPrey();
-
+//showPrey();
+do 
+    addPrey();
+while(preyList.isEmpty());
 timer = new Timer(TIME_DELAY, this);
 timer.start();
 }
@@ -178,7 +203,12 @@ private void doDrawing(Graphics g) {
 
 if (isGameOn) {
 
-g.drawImage(prey, x_prey, y_prey, this);
+//g.drawImage(prey, x_prey, y_prey, this);
+for(Point p:preyList){
+    int x = new Double(p.getX()).intValue();
+    int y = new Double(p.getY()).intValue();
+    g.drawImage(prey,x,y,this);
+}
 Point tempPoint = null;
 int tempPointX;
 int tempPointY;
@@ -205,11 +235,18 @@ private void isPreyHit() {
 Point tempPoint = pointArrayList.get(0);
 int tempPointX = new Double(tempPoint.getX()).intValue();
 int tempPointY = new Double(tempPoint.getY()).intValue();
-if ((tempPointX == x_prey) &&(tempPointY == y_prey)) {
-   pixels++;
-pointArrayList.add(new Point());
-showPrey();
+for(int i = 0; i<preyList.size(); i++){
+    Point p = preyList.get(i);
+    int x = new Double(p.getX()).intValue();
+    int y = new Double(p.getY()).intValue();
+    if ((tempPointX == x) &&(tempPointY == y)) {
+        pixels++;
+        pointArrayList.add(new Point());
+        //showPrey();
+        preyList.remove(new Point(x,y));
+    }
 }
+
 }
 
 private void showPrey() {
@@ -333,23 +370,24 @@ public void actionPerformed(ActionEvent e) {
 //System.out.println("-----in actionPerformed : :"+isSpacePressed);
 currPlayerScorelabel.setText("Current Player Score:"+ (pixels - 3));
 if (!isSpacePressed && isGameOn) {
-    System.out.println("0-----in actionPerformed : :"+isSpacePressed);
+    //System.out.println("0-----in actionPerformed : :"+isSpacePressed);
 isPreyHit();
 checkCollision();
 moveSnake();
-System.out.println("11-----in actionPerformed : :"+isSpacePressed);
+addPrey();
+//System.out.println("11-----in actionPerformed : :"+isSpacePressed);
 } else {
 
 }
-System.out.println("1-----in actionPerformed : :"+isSpacePressed);
+//System.out.println("1-----in actionPerformed : :"+isSpacePressed);
 try{
     revalidate();
 repaint();
 }catch(Exception ex){
-    System.out.println("2-----EXCEPTION : :"+ex);
+    //System.out.println("2-----EXCEPTION : :"+ex);
 ex.printStackTrace();
 }
-System.out.println("2-----in actionPerformed : :"+isSpacePressed);
+//System.out.println("2-----in actionPerformed : :"+isSpacePressed);
 }
 
 private String getHighScore() {
