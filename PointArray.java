@@ -7,7 +7,7 @@ public class PointArray {
   List<Point> pointArrayList = new ArrayList<Point>();
 
   public List<Point> getPointArrayList() {
-      return pointArrayList;
+      return new ArrayList<Point>();
 }
 
 public void setPointArrayList(List<Point> pointArrayList) {

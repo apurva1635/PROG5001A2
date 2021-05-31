@@ -57,7 +57,9 @@ public class AK_GameBoard extends JPanel implements ActionListener,MouseListener
   
    private PointArray pointArray = new PointArray();
    private final List<Point> pointArrayList = pointArray.getPointArrayList();
+   private final List<Point> pointArrayList2 = pointArray.getPointArrayList();
    private int pixels;
+   private int pixels2;
    private int x_prey;
    private int y_prey;
 
@@ -151,7 +153,7 @@ int y = ((r * PIXEL_SIZE));
 if(preyList.size()<2){
     while(true){
     Point p = new Point(x,y);
-    if(pointArrayList.contains(p) || preyList.contains(p)){
+    if(pointArrayList.contains(p)||pointArrayList2.contains(p) || preyList.contains(p)){
     continue;
     }
     preyList.add(p);
@@ -182,6 +184,12 @@ for (int i = 0; i<pixels; i++) {
 
 pointArrayList.add(new Point(50 - i *10, 50));
 }
+pixels2 = 3;
+
+for (int i = 0; i<pixels2; i++) {
+
+pointArrayList2.add(new Point(80 - i *10, 80));
+}
 
 //showPrey();
 do 
@@ -197,6 +205,7 @@ public void paintComponent(Graphics g) {
 super.paintComponent(g);
 
 doDrawing(g);
+doDrawing2(g);
 }
 
 private void doDrawing(Graphics g) {
@@ -230,6 +239,39 @@ Toolkit.getDefaultToolkit().sync();
 gameOver(g);
 }
 }
+
+private void doDrawing2(Graphics g) {
+
+if (isGameOn) {
+
+//g.drawImage(prey, x_prey, y_prey, this);
+for(Point p:preyList){
+    int x = new Double(p.getX()).intValue();
+    int y = new Double(p.getY()).intValue();
+    g.drawImage(prey,x,y,this);
+}
+Point tempPoint = null;
+int tempPointX;
+int tempPointY;
+for (int i = 0; i < pixels2; i++) {
+tempPoint = pointArrayList2.get(i);
+tempPointX = new Double(tempPoint.getX()).intValue();
+tempPointY = new Double(tempPoint.getY()).intValue();
+if (i == 0) {
+g.drawImage(snake_head, tempPointX, tempPointY, this);
+} else {
+g.drawImage(body_part, tempPointX, tempPointY, this);
+}
+}
+
+Toolkit.getDefaultToolkit().sync();
+
+} else {
+
+gameOver(g);
+}
+}
+
 
 private void isPreyHit() {
 Point tempPoint = pointArrayList.get(0);
