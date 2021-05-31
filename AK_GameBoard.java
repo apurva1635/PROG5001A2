@@ -67,6 +67,10 @@ public class AK_GameBoard extends JPanel implements ActionListener,MouseListener
    private boolean rightDir = true;
    private boolean upDir = false;
    private boolean downDir = false;
+   private boolean leftDir2 = false;
+   private boolean rightDir2 = true;
+   private boolean upDir2 = false;
+   private boolean downDir2 = false;
    private boolean isGameOn = true;
    private boolean isSpacePressed = true;
    private Timer timer;
@@ -290,6 +294,23 @@ for(int i = 0; i<preyList.size(); i++){
 }
 
 }
+private void isPreyHit2() {
+Point tempPoint = pointArrayList2.get(0);
+int tempPointX = new Double(tempPoint.getX()).intValue();
+int tempPointY = new Double(tempPoint.getY()).intValue();
+for(int i = 0; i<preyList.size(); i++){
+    Point p = preyList.get(i);
+    int x = new Double(p.getX()).intValue();
+    int y = new Double(p.getY()).intValue();
+    if ((tempPointX == x) &&(tempPointY == y)) {
+        pixels2++;
+        pointArrayList2.add(new Point());
+        //showPrey();
+        preyList.remove(new Point(x,y));
+    }
+}
+
+}
 
 private void showPrey() {
 
@@ -366,6 +387,45 @@ System.out.println("-------3---------pointArrayList:"+pointArrayList);
 //System.out.println("***********************************");
 }
 
+private void moveSnake2() {
+
+ System.out.println("-------1---------pointArrayList:"+pointArrayList);
+Point tempPoint = null;
+
+for (int i = pixels2; i > 0; i--) {
+if ((i - 2) != -1) {
+pointArrayList2.set(i - 1, pointArrayList2.get(i -2));
+}
+}
+
+tempPoint = pointArrayList2.get(0);
+int tempPointX = new Double(tempPoint.getX()).intValue();
+int tempPointY = new Double(tempPoint.getY()).intValue();
+
+if (leftDir2) {
+tempPointX -= PIXEL_SIZE;
+}
+
+if (rightDir2) {
+tempPointX += PIXEL_SIZE;
+}
+
+if (upDir2) {
+tempPointY -= PIXEL_SIZE;
+}
+
+if (downDir2) {
+tempPointY += PIXEL_SIZE;
+//System.out.println("--------2---------tempPointY:"+tempPointY);
+//System.out.println("--------2--------tempPointX:"+tempPointX);
+}
+pointArrayList2.set(0, new Point(tempPointX, tempPointY));
+//System.out.println("***********************************");
+System.out.println("-------3---------pointArrayList:"+pointArrayList2);
+//System.out.println("***********************************");
+}
+
+
 private void checkCollision() {
 
 Point tempPointFirst = pointArrayList.get(0);
@@ -406,6 +466,48 @@ if (!isGameOn) {
 }
 
 }
+
+private void checkCollision2() {
+
+Point tempPointFirst = pointArrayList2.get(0);
+Point tempPoint = null;
+int tempPointX;
+int tempPointY;
+int tempPointXFirst = new Double(tempPointFirst.getX()).intValue();
+int tempPointYFirst = new Double(tempPointFirst.getY()).intValue();
+for (int i = pixels2; i > 0; i--) {
+tempPoint = pointArrayList2.get(i-1);
+tempPointX = new Double(tempPoint.getX()).intValue();
+tempPointY = new Double(tempPoint.getY()).intValue();
+if ((i > 4) && (tempPointXFirst == tempPointX) && (tempPointYFirst == tempPointY)) {
+isGameOn = false;
+}
+
+
+if (tempPointYFirst >= ycells * szcell) {
+   isGameOn = false;
+}
+
+if (tempPointYFirst < 0) {
+   isGameOn = false;
+}
+
+if (tempPointXFirst >= xcells * szcell) {
+   isGameOn = false;
+}
+
+if (tempPointXFirst < 0) {
+   isGameOn = false;
+
+}
+
+if (!isGameOn) {
+    timer.stop();
+}
+}
+
+}
+
 @Override
 public void actionPerformed(ActionEvent e) {
 
@@ -414,8 +516,11 @@ currPlayerScorelabel.setText("Current Player Score:"+ (pixels - 3));
 if (!isSpacePressed && isGameOn) {
     //System.out.println("0-----in actionPerformed : :"+isSpacePressed);
 isPreyHit();
+isPreyHit2();
 checkCollision();
+checkCollision2();
 moveSnake();
+moveSnake2();
 addPrey();
 //System.out.println("11-----in actionPerformed : :"+isSpacePressed);
 } else {
@@ -507,6 +612,31 @@ downDir = true;
 rightDir = false;
 leftDir = false;
 }
+
+if ((key == KeyEvent.VK_A) && (!rightDir2)) {
+leftDir2 = true;
+upDir2 = false;
+downDir2 = false;
+}
+
+if ((key == KeyEvent.VK_D) && (!leftDir2)) {
+rightDir2 = true;
+upDir2 = false;
+downDir2 = false;
+}
+
+if ((key == KeyEvent.VK_W) && (!downDir2)) {
+upDir2 = true;
+rightDir2 = false;
+leftDir2 = false;
+}
+
+if ((key == KeyEvent.VK_Z) && (!upDir2)) {
+downDir2 = true;
+rightDir2 = false;
+leftDir2 = false;
+}
+
 if (key == KeyEvent.VK_SPACE) {
 //System.out.println("------------isSpacePressed:"+isSpacePressed);
 if (isSpacePressed) {
