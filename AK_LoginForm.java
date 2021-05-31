@@ -90,19 +90,13 @@ public class AK_LoginForm extends JFrame implements ActionListener {
         String username = textUsername.getText();
         String password = fieldPassword.getText();
         if (playerList.matchPlayer(username, password)) {
-          EventQueue.invokeLater(new Runnable() {
-              @Override
-              public void run(){
-              JFrame sgame = new AK_SnakeGame(username);
-              sgame.setVisible(true);  
-            }
-            });
+          
             //JOptionPane.showMessageDialog(this, username + ": login successfully");
-            //EventQueue.invokeLater(() -> {
+            EventQueue.invokeLater(() -> {
             //create the game with a game title as follow: The Snake Game (C) Your_Name
-            //JFrame sgame = new AK_SnakeGame(username);
-            //sgame.setVisible(true);
-        //});
+            JFrame sgame = new AK_SnakeGame(username);
+            sgame.setVisible(true);
+        });
         } else {
             JOptionPane.showMessageDialog(this, "wrong username or password");
         }
