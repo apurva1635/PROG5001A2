@@ -148,14 +148,14 @@ int x = ((r * PIXEL_SIZE));
 
 r = (int) (Math.random() * POSITION);
 int y = ((r * PIXEL_SIZE));
-if(preyList.size()<3){
+if(preyList.size()<2){
     while(true){
     Point p = new Point(x,y);
     if(pointArrayList.contains(p) || preyList.contains(p)){
     continue;
     }
     preyList.add(p);
-    //break;
+    break;
     }
 }
 System.out.println(preyList.size());
@@ -367,7 +367,7 @@ if (!isGameOn) {
 @Override
 public void actionPerformed(ActionEvent e) {
 
-//System.out.println("-----in actionPerformed : :"+isSpacePressed);
+System.out.println("-----in actionPerformed : :"+isSpacePressed);
 currPlayerScorelabel.setText("Current Player Score:"+ (pixels - 3));
 if (!isSpacePressed && isGameOn) {
     //System.out.println("0-----in actionPerformed : :"+isSpacePressed);
@@ -381,7 +381,7 @@ addPrey();
 }
 //System.out.println("1-----in actionPerformed : :"+isSpacePressed);
 try{
-    revalidate();
+    //revalidate();
 repaint();
 }catch(Exception ex){
     //System.out.println("2-----EXCEPTION : :"+ex);
